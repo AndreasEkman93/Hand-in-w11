@@ -89,7 +89,6 @@ namespace Hand_in_w11
                 string? choice = Console.ReadLine();
                 Console.Write("Skriv in vad du vill ändra det till:");
                 string? newInput = Console.ReadLine();
-
                 if (studentService.ChangeStudentValue(choice, newInput, studentId))
                 {
                     Console.WriteLine("Ändring har skett");
@@ -136,3 +135,5 @@ namespace Hand_in_w11
         }
     }
 }
+
+

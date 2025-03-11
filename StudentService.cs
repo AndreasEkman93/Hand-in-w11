@@ -9,12 +9,12 @@ namespace Hand_in_w11
 {
     internal class StudentService
     {
-        private StudentDbContext dbContext = new StudentDbContext();
 
         public bool AddStudent(string firstName, string lastName, string city)
         {
             if (firstName != "" && lastName != "" && city != "")
             {
+                using var dbContext = new StudentDbContext();
                 dbContext.Add(new Student { FirstName = firstName, LastName = lastName, City = city });
                 dbContext.SaveChanges();
                 return true;
@@ -27,33 +27,39 @@ namespace Hand_in_w11
 
         public bool ChangeStudentValue(string choice, string newInput, int id)
         {
-            Student? student = dbContext.Students.SingleOrDefault(s => s.StudentId == id);
-            if (student != null && choice != null && newInput != null)
+            if (string.IsNullOrEmpty(newInput))
             {
+                return false;
+            }
+            using var dbContext = new StudentDbContext();
+            var student = dbContext.Students.SingleOrDefault(s => s.StudentId == id);
+
+            if (student == null)
+            {
+                return false;
+            }
                 switch (choice)
                 {
                     case "1":
                         student.FirstName = newInput;
-                        dbContext.SaveChanges();
-                        return true;
+                    break;
                     case "2":
                         student.LastName = newInput;
-                        dbContext.SaveChanges();
-                        return true;
+                    break;
                     case "3":
                         student.City = newInput;
-                        dbContext.SaveChanges();
-                        return true;
+                    break;
                     default:
                         return false;
                 }
-            }
-            return false;
+            dbContext.SaveChanges();
+            return true;
         }
 
 
         public bool RemoveStudent(int studentId)
         {
+            using var dbContext = new StudentDbContext();
             Student? student = dbContext.Students.SingleOrDefault(s => s.StudentId == studentId);
             if (student != null)
             {
@@ -68,19 +74,13 @@ namespace Hand_in_w11
         }
         public List<Student> ListAllStudents()
         {
+            using var dbContext = new StudentDbContext();
             return dbContext.Students.ToList();
         }
         public bool StudentExist(int studentId)
         {
-            Student? student = dbContext.Students.SingleOrDefault(s => s.StudentId == studentId);
-            if (student != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            using var dbContext = new StudentDbContext();
+            return(dbContext.Students.Any(s => s.StudentId == studentId));
         }
     }
 }
