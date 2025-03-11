@@ -25,9 +25,32 @@ namespace Hand_in_w11
             }
         }
 
-        //}
-        //public bool ChangeStudentValue()
-        //{
+        public bool ChangeStudentValue(string choice, string newInput, int id)
+        {
+            Student? student = dbContext.Students.SingleOrDefault(s => s.StudentId == id);
+            if (student != null)
+            {
+                switch (choice)
+                {
+                    case "1":
+                        student.FirstName = newInput;
+                        dbContext.SaveChanges();
+                        return true;
+                    case "2":
+                        student.LastName = newInput;
+                        dbContext.SaveChanges();
+                        return true;
+                    case "3":
+                        student.City = newInput;
+                        dbContext.SaveChanges();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+            return false;
+        }
+        
 
         //}
         //public bool DeleteStudent()

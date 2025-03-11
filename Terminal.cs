@@ -68,7 +68,7 @@ namespace Hand_in_w11
             string firstName = Console.ReadLine() ?? "";
             Console.Write("Skriv Efternamn:");
             string lastName = Console.ReadLine() ?? "";
-            Console.Write("Skriv stad studenten kommer från:");
+            Console.Write("Skriv staden som studenten kommer från:");
             string city = Console.ReadLine() ?? "";
             if (firstName != "" && lastName != "" && city != "")
             {
@@ -82,7 +82,26 @@ namespace Hand_in_w11
         }
         public void ChangeStudentValues()
         {
-            
+            Console.Write("Vilken student vill du ändra värdet på? Tryck bara enter för att återgå:");
+            if (int.TryParse(Console.ReadLine(), out int studentId))
+            {
+                Console.Write("Mata in värdet du vill hantera[1. Förnamn, 2. Efternamn, 3. Stad]:");
+                string choice = Console.ReadLine() ?? "";
+                Console.Write("Skriv in vad du vill ändra det till:");
+                string newInput = Console.ReadLine() ?? "";
+                if (studentService.ChangeStudentValue(choice, newInput, studentId))
+                {
+                    Console.WriteLine("Ändring har skett.");
+                }
+                else
+                {
+                    Console.WriteLine("Fel inmatning, återgår till tidigare meny.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Du angav inte en siffra, återgår till tidigare meny.");
+            }
         }
         public void ListAllStudents()
         {
