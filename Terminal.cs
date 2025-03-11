@@ -105,7 +105,11 @@ namespace Hand_in_w11
         }
         public void ListAllStudents()
         {
-
+            Console.WriteLine("En lista på alla Studenter:");
+            foreach (Student student in studentService.ListAllStudents())
+            {
+                Console.WriteLine($"{student.StudentId} {student.FirstName} {student.LastName} {student.City}");
+            }
         }
         public void RemoveStudent()
         {

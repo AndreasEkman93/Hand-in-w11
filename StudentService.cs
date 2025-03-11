@@ -57,9 +57,9 @@ namespace Hand_in_w11
         //{
 
         //}
-        public StudentDbContext ListAllStudents()
+        public List<Student> ListAllStudents()
         {
-            return dbContext;
+            return dbContext.Students.ToList();
         }
     }
 }
