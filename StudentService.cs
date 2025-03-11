@@ -11,8 +11,19 @@ namespace Hand_in_w11
     {
         private StudentDbContext dbContext = new StudentDbContext();
 
-        //public bool AddStudent()
-        //{
+        public bool AddStudent(string firstName, string lastName, string city)
+        {
+            if (firstName != "" && lastName != "" && city != "")
+            {
+                dbContext.Add(new Student { FirstName = firstName, LastName = lastName, City = city });
+                dbContext.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         //}
         //public bool ChangeStudentValue()

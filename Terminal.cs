@@ -63,8 +63,22 @@ namespace Hand_in_w11
         }
         public void AddStudent()
         {
-            
-
+            Console.WriteLine("Du har valt att registrera en ny student, tryck bara enter om du vill återgå till tidigare meny.");
+            Console.Write("Skriv Förnamn:");
+            string firstName = Console.ReadLine() ?? "";
+            Console.Write("Skriv Efternamn:");
+            string lastName = Console.ReadLine() ?? "";
+            Console.Write("Skriv stad studenten kommer från:");
+            string city = Console.ReadLine() ?? "";
+            if (firstName != "" && lastName != "" && city != "")
+            {
+                studentService.AddStudent(firstName, lastName, city);
+                Console.WriteLine($"Studenten {firstName} {lastName} är tillagd.");
+            }
+            else
+            {
+                Console.WriteLine("Du har tryckt enter utan att mata in värde, återgår till huvudmeny.");
+            }
         }
         public void ChangeStudentValues()
         {
