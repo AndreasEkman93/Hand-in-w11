@@ -28,7 +28,7 @@ namespace Hand_in_w11
         public bool ChangeStudentValue(string choice, string newInput, int id)
         {
             Student? student = dbContext.Students.SingleOrDefault(s => s.StudentId == id);
-            if (student != null)
+            if (student != null && choice != null && newInput != null)
             {
                 switch (choice)
                 {
@@ -50,7 +50,7 @@ namespace Hand_in_w11
             }
             return false;
         }
-        
+
 
         public bool RemoveStudent(int studentId)
         {
@@ -69,6 +69,18 @@ namespace Hand_in_w11
         public List<Student> ListAllStudents()
         {
             return dbContext.Students.ToList();
+        }
+        public bool StudentExist(int studentId)
+        {
+            Student? student = dbContext.Students.SingleOrDefault(s => s.StudentId == studentId);
+            if (student != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

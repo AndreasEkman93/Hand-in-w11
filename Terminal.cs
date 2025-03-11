@@ -82,25 +82,22 @@ namespace Hand_in_w11
         }
         public void ChangeStudentValues()
         {
-            Console.Write("Vilken student vill du ändra värdet på? Tryck bara enter för att återgå:");
-            if (int.TryParse(Console.ReadLine(), out int studentId))
+            int studentId = GetValidId();
+            if (studentId != 0)
             {
                 Console.Write("Mata in värdet du vill hantera[1. Förnamn, 2. Efternamn, 3. Stad]:");
-                string choice = Console.ReadLine() ?? "";
+                string? choice = Console.ReadLine();
                 Console.Write("Skriv in vad du vill ändra det till:");
-                string newInput = Console.ReadLine() ?? "";
+                string? newInput = Console.ReadLine();
+
                 if (studentService.ChangeStudentValue(choice, newInput, studentId))
                 {
-                    Console.WriteLine("Ändring har skett.");
+                    Console.WriteLine("Ändring har skett");
                 }
                 else
                 {
-                    Console.WriteLine("Fel inmatning, återgår till tidigare meny.");
+                    Console.WriteLine("Fel inmatning, återgår till huvudmeny.");
                 }
-            }
-            else
-            {
-                Console.WriteLine("Du angav inte en siffra, återgår till tidigare meny.");
             }
         }
         public void ListAllStudents()
@@ -113,22 +110,29 @@ namespace Hand_in_w11
         }
         public void RemoveStudent()
         {
-            Console.Write("Mata in id på studenten du vill ta bort. Skriver du något annat en siffra återgår du till huvudmenyn:");
-            if (int.TryParse(Console.ReadLine(), out int studentId) && studentId>0)
+            int studentId = GetValidId();
+            if (studentId != 0)
             {
-                if (studentService.RemoveStudent(studentId))
-                {
-                    Console.WriteLine("Studenten borttagen.");
-                }
-                else
-                {
-                    Console.WriteLine("Du angav en siffra som inte går att relatera till ett student id. Återgår till menyn.");
-                }
+                studentService.RemoveStudent(studentId);
+                Console.WriteLine("Studenten borttagen.");
             }
             else
             {
                 return;
             }
+        }
+        public int GetValidId()
+        {
+                Console.Write("Mata in id för studenten du vill hantera:");
+                if(int.TryParse(Console.ReadLine(),out int studentId) && studentService.StudentExist(studentId))
+                {
+                    return studentId;
+                }
+                else
+                {
+                    Console.WriteLine("Inmatning går ej att relatera till en student. Återgår till huvudmeny.");
+                    return 0;
+                }
         }
     }
 }
