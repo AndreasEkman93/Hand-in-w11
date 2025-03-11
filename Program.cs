@@ -4,7 +4,9 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            var studentService = new StudentService();
+            var terminal = new Terminal(studentService);
+            terminal.Menu();
         }
     }
 }
