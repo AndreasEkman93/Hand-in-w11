@@ -52,11 +52,20 @@ namespace Hand_in_w11
         }
         
 
-        //}
-        //public bool DeleteStudent()
-        //{
-
-        //}
+        public bool RemoveStudent(int studentId)
+        {
+            Student? student = dbContext.Students.SingleOrDefault(s => s.StudentId == studentId);
+            if (student != null)
+            {
+                dbContext.Students.Remove(student);
+                dbContext.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public List<Student> ListAllStudents()
         {
             return dbContext.Students.ToList();

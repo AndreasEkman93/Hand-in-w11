@@ -113,7 +113,22 @@ namespace Hand_in_w11
         }
         public void RemoveStudent()
         {
-
+            Console.Write("Vilken student vill du ändra värdet på? Tryck bara enter för att återgå:");
+            if (int.TryParse(Console.ReadLine(), out int studentId))
+            {
+                if (studentService.RemoveStudent(studentId))
+                {
+                    Console.WriteLine("Studenten borttagen.");
+                }
+                else
+                {
+                    Console.WriteLine("Du angav en siffra som inte går att relatera till ett student id. Återgår till menyn.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Du angav inte en siffra, återgår till tidigare meny.");
+            }
         }
     }
 }
