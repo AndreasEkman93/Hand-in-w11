@@ -30,35 +30,40 @@ namespace Hand_in_w11
         }
         public void MenuChoiceHandler()
         {
-            Console.Write("Välj vad du vill göra:");
-            if (int.TryParse(Console.ReadLine(), out var choice))
+            bool isValidChoice = false;
+            while (!isValidChoice)
             {
-                switch (choice)
+                Console.Write("Välj vad du vill göra:");
+                if (int.TryParse(Console.ReadLine(), out var choice))
                 {
-                    case 0:
-                        Environment.Exit(0);
-                        break;
-                    case 1:
-                        AddStudent();
-                        break;
-                    case 2:
-                        ChangeStudentValues();
-                        break;
-                    case 3:
-                        ListAllStudents();
-                        break;
-                    case 4:
-                        RemoveStudent();
-                        break;
-                    default:
-                        Console.WriteLine("Du har givit en siffra utanför menyvalet.");
-                        break;
+                    isValidChoice = true;
+                    switch (choice)
+                    {
+                        case 0:
+                            Environment.Exit(0);
+                            break;
+                        case 1:
+                            AddStudent();
+                            break;
+                        case 2:
+                            ChangeStudentValues();
+                            break;
+                        case 3:
+                            ListAllStudents();
+                            break;
+                        case 4:
+                            RemoveStudent();
+                            break;
+                        default:
+                            Console.WriteLine("Du har givit en siffra utanför menyvalet.");
+                            isValidChoice = false;
+                            break;
+                    }
                 }
-            }
-            else
-            {
-                Console.WriteLine("Inmatning är inte en siffra.");
-                MenuChoiceHandler();
+                else
+                {
+                    Console.WriteLine("Inmatning är inte en siffra.");
+                }
             }
         }
         public void AddStudent()
@@ -137,7 +142,7 @@ namespace Hand_in_w11
                 {
                     Console.WriteLine("Inmatning går ej att relatera till en student.");
                 }
-            } 
+            }
         }
     }
 }
