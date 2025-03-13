@@ -136,7 +136,7 @@ namespace Hand_in_w11
                 }
                 else if (studentId == -1)
                 {
-                    Menu();
+                    return 0;
                 }
                 else
                 {
