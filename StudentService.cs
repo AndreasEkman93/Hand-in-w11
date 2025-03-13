@@ -14,7 +14,7 @@ namespace Hand_in_w11
         {
             if (firstName != "" && lastName != "" && city != "")
             {
-                using var dbContext = new StudentDbContext();
+                var dbContext = new StudentDbContext();
                 dbContext.Add(new Student { FirstName = firstName, LastName = lastName, City = city });
                 dbContext.SaveChanges();
                 return true;
@@ -31,7 +31,7 @@ namespace Hand_in_w11
             {
                 return false;
             }
-            using var dbContext = new StudentDbContext();
+            var dbContext = new StudentDbContext();
             var student = dbContext.Students.SingleOrDefault(s => s.StudentId == id);
 
             if (student == null)
@@ -59,7 +59,7 @@ namespace Hand_in_w11
 
         public bool RemoveStudent(int studentId)
         {
-            using var dbContext = new StudentDbContext();
+            var dbContext = new StudentDbContext();
             Student? student = dbContext.Students.SingleOrDefault(s => s.StudentId == studentId);
             if (student != null)
             {
@@ -74,12 +74,12 @@ namespace Hand_in_w11
         }
         public List<Student> ListAllStudents()
         {
-            using var dbContext = new StudentDbContext();
+            var dbContext = new StudentDbContext();
             return dbContext.Students.ToList();
         }
         public bool StudentExist(int studentId)
         {
-            using var dbContext = new StudentDbContext();
+            var dbContext = new StudentDbContext();
             return(dbContext.Students.Any(s => s.StudentId == studentId));
         }
     }
