@@ -122,16 +122,22 @@ namespace Hand_in_w11
         }
         public int GetValidId()
         {
-                Console.Write("Mata in id för studenten du vill hantera:");
-                if(int.TryParse(Console.ReadLine(),out int studentId) && studentService.StudentExist(studentId))
+            while (true)
+            {
+                Console.Write("Mata in id för studenten du vill hantera, skriv -1 för att återgå till huvudmeny:");
+                if (int.TryParse(Console.ReadLine(), out int studentId) && studentService.StudentExist(studentId))
                 {
                     return studentId;
                 }
+                else if (studentId == -1)
+                {
+                    Menu();
+                }
                 else
                 {
-                    Console.WriteLine("Inmatning går ej att relatera till en student. Återgår till huvudmeny.");
-                    return 0;
+                    Console.WriteLine("Inmatning går ej att relatera till en student.");
                 }
+            } 
         }
     }
 }
